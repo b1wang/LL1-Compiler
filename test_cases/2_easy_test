@@ -1,0 +1,8 @@
+main 
+var isa, jsa; 
+{ 
+    let isa <- 2;
+    let jsa <- 3;
+    call OutputNum(2+1);
+    call OutputNum(isa+jsa)
+}.

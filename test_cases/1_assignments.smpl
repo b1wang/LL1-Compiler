@@ -1,0 +1,9 @@
+main 
+var a, b, sum;
+{
+let a <- 4
+let b <- 6
+
+let sum <- a + b
+OutputNum(sum)
+}.

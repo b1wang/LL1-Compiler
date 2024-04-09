@@ -1,0 +1,11 @@
+Current bugs:
+
+- While loops, when new phi is added and will loop downwards to modify all instructions, does not work properly
+    - Problem: In the ChangeAllSymbols function
+    - Need to find a way to track which variables are invariant
+
+    - Subproblems:
+        - Because it looks back around to change "all symbols", it messes up anything within the while loop 
+            - Bugs in nested while loop
+            - Bugs in a if in while loop 
+

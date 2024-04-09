@@ -1,0 +1,30 @@
+main
+var a, b;
+array[4][3][2] x;
+{
+    let a <- call InputNum ();
+    let b <- a; 
+    let i <- 0;
+    let j <- i;
+    let x[a][i][b] <- b + 2;
+    if b<= 2 then 
+        let x[b][j][a] <- x[a][j][b] + 2 
+    else 
+        let b <- x[a][i][b] + 2 
+    fi; 
+    call OutputNum(x[a][i][b])
+}.
+
+Expected Graphviz:
+digraph G{
+BB0 [shape=record, label="<b>BB0| { 0: const #4 | 1: const x_adr | 3: const #0 | 4: const #2 | 6: const #6 }}"];
+BB1 [shape=record, label="<b>BB1| { 2: read | 5: add (2) (4) | 7: mul (6) (2) | 8: mul (4) (3) | 9: add (7) (8) | 10: add (9) (2) | 11: mul (10) (0) | 12: add #BASE (1) | 13: adda (11) (12) | 14: store (13) (5) | 15: cmp (2) (4) | 16: bgt (15) (21) }}"];
+BB2 [shape=record, label="<b>BB2| { 17: add (14) (4) | 19: store (13) (17) | 20: bra (18) }}"];
+BB3 [shape=record, label="<b>BB3| { 21: add (14) (4) }}"];
+BB4 [shape=record, label="<b>BB4| { 18: kill x | 22: phi (2) (21) | 23: mul (6) (2) | 24: mul (4) (3) | 25: add (23) (24) | 26: add (25) (22) | 27: mul (26) (0) | 28: adda (27) (12) | 29: load (28) | 30: write (29) | 31: end }}"];
+BB0:s -> BB1:n;
+BB1:s -> BB2:n [label="fall-through"];
+BB1:s -> BB3:n [label="branch"];
+BB2:s -> BB4:n [label="branch"];
+BB3:s -> BB4:n [label="fall-through"];
+}

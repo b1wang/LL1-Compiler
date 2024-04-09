@@ -1,0 +1,19 @@
+main var a, b, c, d, e, i;
+{
+    let a <- call InputNum();
+    let b <- a;
+    let c <- b;
+    let d <- b + c;
+    let e <- a + b;
+    let i <- 0;
+    while i < 5 do
+        if a < 0 then
+            let d <- d + e;
+            let a <- d;
+        else 
+            let d <- e;
+        fi;
+        let i <- i + 1;
+    od;
+    call OutputNum(a);
+}.

@@ -1,0 +1,31 @@
+main 
+var x,y,i,j; 
+array[4] a; 
+{
+    let i<-call InputNum(); 
+    let x<-0; 
+    let y<-0; 
+    let j<-i; 
+    let a[x] <- i; 
+    while a[x]<10 do 
+        let j <- i + 1; 
+        let a[x] <- a[x] + 1; 
+        let i <-i + 1 
+    od; 
+    call OutputNum(j); 
+    call OutputNum(a[x])
+}.
+
+Expected GraphViz (not sure):
+digraph G{
+BB0 [shape=record, label="<b>BB0| { 0: const #4 | 1: const a_adr | 3: const #0 | 14: const #10 | 17: const #1 }}"];
+BB1 [shape=record, label="<b>BB1| { 2: read | 4: mul (3) (0) | 5: add #BASE (1) | 6: adda (4) (5) | 7: store (6) (2) }}"];
+BB2 [shape=record, label="<b>BB2| { 8: phi (2) (18) | 9: phi (2) (18) | 10: kill a | 11: mul (3) (0) | 12: adda (11) (5) | 13: load (12) | 15: cmp (13) (14) | 16: bge (15) (21) }}"];
+BB3 [shape=record, label="<b>BB3| { 18: add (9) (17) | 19: add (13) (17) | 20: store (12) (19) }}"];
+BB4 [shape=record, label="<b>BB4| { 21: write (8) | 22: write (13) | 23: end }}"];
+BB0:s -> BB1:n;
+BB1:s -> BB2:n;
+BB2:s -> BB3:n [label="fall-through"];
+BB3:s -> BB2:n [label="fall-through"];
+BB2:s -> BB4:n [label="follow"];
+}

@@ -1,0 +1,22 @@
+main var a, b, c, d, e; { 
+let a <- call InputNum(); 
+let b <- a; 
+let c <- b; 
+let d <- b + c; 
+let e <- b + c; 
+if a < 0 then let d <- d + e; let a <- d else let d <- e fi; 
+call OutputNum(a)
+}.
+
+digraph G{
+BB0 [shape=record, label="<b>BB0| { 0: const #4 | 3: const #0 }}"];
+BB1 [shape=record, label="<b>BB1| { 1: read | 2: add (1) (1) | 4: cmp (1) (3) | 5: bge (4) (10) }}"];
+BB2 [shape=record, label="<b>BB2| { 6: add (2) (2) | 9: bra (7) }}"];
+BB3 [shape=record, label="<b>BB3| { 10: \<empty\> }}"];
+BB4 [shape=record, label="<b>BB4| { 7: phi (6) (2) | 8: phi (6) (1) | 11: write (8)}}"];
+BB0:s -> BB1:n;
+BB1:s -> BB2:n [label="fall-through"];
+BB1:s -> BB3:n [label="branch"];
+BB2:s -> BB4:n [label="branch"];
+BB3:s -> BB4:n [label="fall-through"];
+}

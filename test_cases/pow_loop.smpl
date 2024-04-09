@@ -1,0 +1,15 @@
+main var base, pow, res;
+{
+  let base <- 2;
+  let pow <- 3;
+  let res <- 1;
+
+  while pow != 0 do
+    let res <- res * base;
+    let pow <- pow - 1;
+
+  od;
+
+  call OutputNum(res);
+
+}.

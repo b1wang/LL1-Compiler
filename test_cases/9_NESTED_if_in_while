@@ -1,0 +1,41 @@
+main 
+var x,y,i,j; 
+{
+    let i<-call InputNum(); 
+    let x<-0; 
+    let y<-0; 
+    let j<- i; 
+    while x<10 do  
+        let x <- i + 1; 
+        if x > 0 then 
+            let x <- j + 1 
+        else 
+            let y <- i + 1 
+        fi; 
+        let i <-i + 1 
+    od; 
+    call OutputNum(x)
+}.
+
+
+Expected GraphViz (The instruction number can be different)
+
+digraph G{
+BB0 [shape=record, label="<b>BB0| { 1: const #0 | 5: const #10 | 8: const #1 }}"];
+BB1 [shape=record, label="<b>BB1| { 0: read }}"];
+BB2 [shape=record, label="<b>BB2| { 2: phi (1) (13) | 3: phi (1) (16) | 4: phi (0) (17) | 6: cmp (2) (5) | 7: bge (6) (18) }}"];
+BB3 [shape=record, label="<b>BB3| { 9: add (4) (8) | 10: cmp (9) (1) | 11: ble (10) (15) }}"];
+BB4 [shape=record, label="<b>BB4| { 12: add (0) (8) | 14: bra (13) }}"];
+BB5 [shape=record, label="<b>BB5| { 15: add (4) (8) }}"];
+BB6 [shape=record, label="<b>BB6| { 13: phi (12) (9) | 16: phi (3) (15) | 17: add (4) (8) }}"];
+BB7 [shape=record, label="<b>BB7| { 18: write (2) | 19: end }}"];
+BB0:s -> BB1:n;
+BB1:s -> BB2:n;
+BB2:s -> BB3:n [label="fall-through"];
+BB3:s -> BB4:n [label="fall-through"];
+BB3:s -> BB5:n [label="branch"];
+BB4:s -> BB6:n [label="branch"];
+BB5:s -> BB6:n [label="fall-through"];
+BB6:s -> BB2:n [label="fall-through"];
+BB2:s -> BB7:n [label="follow"];
+}

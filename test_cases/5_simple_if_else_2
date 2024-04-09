@@ -1,0 +1,26 @@
+main var a, b, c, d;
+{
+    let a <- call InputNum();
+    let b <- a;
+    let c <- a + b;
+    if a < 0 then
+        let b <- c + b;
+    else
+        let b <- c + c;
+    fi;
+    call OutputNum(b);
+}.
+
+Expected Graph:
+digraph G {
+	bb0 [shape=record, label="<b>BB0 | {3: const #0}"];
+	bb1 [shape=record, label="<b>BB1 | {1: read|2: add (1) (1)|4: cmp (1) (3)|5: bge (4) (9)}"];
+	bb2 [shape=record, label="<b>BB2 | {6: add (2) (1)|8: bra (7)}"];
+	bb3 [shape=record, label="<b>BB3 | {9: add (2) (2)}"];
+	bb4 [shape=record, label="<b>BB4 | {7: phi (6) (9)|10: write (9)|11: end}"];
+bb0:s -> bb1:n ;
+bb1:s -> bb2:n ;
+bb1:s -> bb3:n ;
+bb2:s -> bb4:n ;
+bb3:s -> bb4:n ;
+}
